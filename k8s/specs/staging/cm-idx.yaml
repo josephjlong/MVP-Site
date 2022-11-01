@@ -9,17 +9,6 @@ spec:
   - protocol: TCP
     port: 80
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: cm-cli
-spec:
-  selector:
-    app: cm-idx
-  ports:
-  - protocol: TCP
-    port: 80
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
