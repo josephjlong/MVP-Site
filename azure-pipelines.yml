@@ -5,7 +5,7 @@
 trigger:
   branches:
     include:
-    - main
+    - feature/jl-indexing-cm
 
 resources:
 - repo: self
@@ -86,7 +86,7 @@ stages:
         artifact: 'Sitecore.MVP-$(Build.BuildNumber)'
 
 - stage: Staging
-  condition:  and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+  condition:  and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/feature/jl-indexing-cm'))
   dependsOn: Build
   displayName: Deploy to Staging
   jobs:
