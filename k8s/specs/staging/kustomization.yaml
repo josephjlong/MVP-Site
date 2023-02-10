@@ -7,6 +7,9 @@ images:
 - name: sitecore-mvp-cm
   newName: $(ACR_ENDPOINT)/mvp-cm
   newTag: $(Build.BuildNumber)-$(Build.SourceBranchName)
+- name: sitecore-mvp-cm-idx
+  newName: $(ACR_ENDPOINT)/mvp-cm-idx
+  newTag: $(Build.BuildNumber)-$(Build.SourceBranchName)
 - name: sitecore-mvp-id
   newName: $(ACR_ENDPOINT)/mvp-id6
   newTag: $(Build.BuildNumber)-$(Build.SourceBranchName)
@@ -18,6 +21,7 @@ images:
   newTag: $(Build.BuildNumber)-$(Build.SourceBranchName)
 resources:
 - cm.yaml
+- cm-idx.yaml
 - cd.yaml
 - id.yaml
 - mvp-rendering.yaml

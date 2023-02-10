@@ -1,14 +1,12 @@
 # escape=`
 
 ARG BASE_IMAGE
-ARG SOLUTION_IMAGE
 ARG TOOLS_RESOURCES_IMAGE
 ARG DEVEX_RESOURCES_IMAGE
 ARG HEADLESS_SERVICES_RESOURCES_IMAGE
 ARG SPE_RESOURCES_IMAGE
 ARG SPS_RESOURCES_IMAGE
 
-FROM ${SOLUTION_IMAGE} as solution
 FROM ${TOOLS_RESOURCES_IMAGE} as tooling
 FROM ${DEVEX_RESOURCES_IMAGE} AS devex_resources
 FROM ${HEADLESS_SERVICES_RESOURCES_IMAGE} AS headless_services_resources
@@ -26,9 +24,6 @@ WORKDIR C:\inetpub\wwwroot
 # Copy developer tools and entrypoint
 COPY --from=tooling C:\tools C:\tools
 
-# Copy custom healthcheck
-COPY .\Healthchecks\ c:\Healthchecks
-
 # Copy the Sitecore Management Services Module
 COPY --from=devex_resources C:\module\cm\content C:\inetpub\wwwroot
 
@@ -44,9 +39,6 @@ COPY --from=spe_resources C:\module\cm\content C:\inetpub\wwwroot
 # Copy SPS assets
 COPY --from=sps_resources C:\module\cm\content C:\inetpub\wwwroot
 
-# Copy solution website files
-COPY --from=solution /artifacts/platform/ ./
-
 # Copy role transforms
 COPY .\transforms\ \transforms\role\
 
@@ -54,4 +46,4 @@ COPY .\transforms\ \transforms\role\
 RUN C:\tools\scripts\Invoke-XdtTransform.ps1 -Path .\Web.config -XdtPath C:\transforms\role\Web.config.xdt;
 
 # Copy config
-COPY .\SheduledTasks.config c:\inetpub\wwwroot\App_Config\Include
+COPY .\Patches\cm-idx.config c:\inetpub\wwwroot\App_Config\Include
